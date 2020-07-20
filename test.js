@@ -5,13 +5,14 @@
 //     categories: { default: { appenders:["mylogger"], level:"ALL" } }
 // });
 // const logger = myLoggers.getLogger("default");
+var sprintf = require("sprintf-js").sprintf
 
 let current_date = new Date().toUTCString()
 debugger;
 // create logs 
 var util = require('util');
 var fs = require('fs');
-var log_file=sprintf('./log_%s.txt',[current_date]);
+var log_file=sprintf('./log/log_%s.txt',[current_date]);
 
 // Use the 'a' flag to append to the file instead of overwrite it.
 var ws = fs.createWriteStream(log_file, {flags: 'w'});
@@ -100,11 +101,10 @@ console.log("result division: "+ object_.division().toString());
 
 console.log("\n");
 
-//var mysql = require('mysql');
+var mysql = require('mysql');
 class mysql_connection{
 
     connection_details(){
-        var mysql = require('mysql');
         var con = mysql.createConnection({
             host: "localhost",
             user: "root",
