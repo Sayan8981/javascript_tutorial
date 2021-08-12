@@ -9,7 +9,7 @@ var b = 13;
 var a = a+b; // addition
 
 document.write(a);
-//console.log(a);
+
 
 
 
