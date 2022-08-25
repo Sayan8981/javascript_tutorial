@@ -72,15 +72,79 @@ person.mob = "8981983455";
 // }
 
 // console.log(introducer(person.name, person.Shirt));
-let sum = 0;
-for (let i = 1; i<=34; i++){
-    console.log(i);
-    sum += i;
-}
-console.log("Sum: ", sum);
+// let sum = 0;
+// for (let i = 1; i<=34; i++){
+//     console.log(i);
+//     sum += i;
+// }
+// console.log("Sum: ", sum);
 
-for (const item of groceries){
-    console.log(item);
+// for (const item of groceries){
+//     console.log(item);
+// }
+
+
+const letterfrequency = (phrase) =>{
+    let frequency = {};
+    for (const letter of phrase){
+        if (letter in frequency){
+            frequency[letter] += 1;
+        } else {
+            frequency[letter] = 1;
+        }
+    }
+    return frequency;
+
 }
 
+// let userinput = prompt("write your sentnce..... here")
+// // console.log(letterfrequency(userinput))
+
+// const wordfrequency = (phrase) => {
+//     const words = phrase.split(' ');
+//     return letterfrequency(words);
+// }
+
+// console.log(wordfrequency(userinput))
+// let list_ = [1,2,2,3,4,5,4,3,6,78,7,6,5,,5,6,7];
+
+// for (let item of list_){
+//     if (item){
+//         console.log(item);
+//     }else{
+//         list_.push(40);
+//     }
+// }
+// console.log(list_)
+
+// const double = (numbers) => {
+//     return numbers.map(number => number * 2);
+// }
+
+
+// let result = [3,2,4,5,6,].map(numbers => numbers * 2);
+// console.log(result);
+
+// console.log(double([2,3,4,5,6,7,]));
+
+// let nums = [2,3,4,5,6,6,7,8];
+// console.log(nums.filter(nums => nums > 3 || nums <3));
+
+let list = [2,3,4,5,6,7];
+let result = list.reduce(function(prev, curr) {
+    return  prev+curr;
+});
+console.log(result);
+
+const actornetworthlist = [
+    {name: "Johny", networth: 12000000},
+    {name: "Rocky", networth: 19000000},
+    {name: "Anny", networth: 17000000},
+    {name: "Johnie", networth: 15000000},
+    {name: "Sam", networth: 20000000},
+
+];
+
+let sumnetworth = actornetworthlist.reduce((actornetworth_prev, actornetworth_curr) => actornetworth_prev + actornetworth_curr.networth, 0);
+console.log(sumnetworth);
 
