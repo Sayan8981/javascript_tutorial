@@ -14,15 +14,55 @@
   </section>
   <section>
     <input id="searchInput" type="text" placeholder="Search name of Heros..">
-    <input id="searchID" type="number" min="1" max="731" placeholder="Search IDs of Heros..">
+    <input id="searchID" type="number" min="1" max="731" placeholder="IDs..">
+    <label for="lang">Options</label>
+    <select name="options" id="option">
+      <option value="None">None</option>
+      <option value="powerstats">powerstats</option>
+      <option value="biography">biography</option>
+      <option value="appearance">appearance</option>
+      <option value="work">work</option>
+      <option value="connections">connections</option>
+    </select>
     <button id="search_hero">Search</button>
     <button id="getrandomhero">Click to get random hero</button>
   </section>
   <br>
   </br>
   <section>
-    <div id="heroimage" class="img"><img src="" alt=""></div>
-    <div id="HeroName" class="name"></div>
+    <div class="card">
+      <div id="heroimage" class="img"><img src=""></div>
+      <div class="container">
+        <div id="HeroName">
+          <p><b></b></p>
+        </div>
+        <br>
+        <div id="heroId">
+          <p></p>
+        </div>
+        <br>
+        <div id="stats">
+          <p></p>
+        </div>
+        <br>
+        <div id="biography">
+          <p></p>
+        </div>
+        <br>
+        <div id="appearance">
+          <p></p>
+        </div>
+        <br>
+        <div id="work">
+          <p></p>
+        </div>
+        <br>
+        <div id="connections">
+          <p></p>
+        </div>
+        <br>
+      </div>
+    </div>
   </section>
   <script src="api_response_activity_UI.js"></script>
   <!--
