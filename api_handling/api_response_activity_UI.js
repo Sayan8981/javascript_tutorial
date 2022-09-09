@@ -1,6 +1,6 @@
 
 // global parameters
-const token = '321780**************'
+const token = '3217806018437260'
 const base_url = `https://www.superheroapi.com/api.php/${token}`;
 
 const random_hero_imageDiv = document.getElementById("heroimage");
@@ -22,7 +22,6 @@ function clean_up() {
   random_hero_imageDiv.innerHTML = '';
   heroname.innerHTML = '';
   search_inputtext.value = '';
-  _search_id_input.value = '';
   heroId.innerHTML = '';
   get_statshtml.innerHTML = '';
   get_biographyhtml.innerHTML = '';
@@ -35,7 +34,7 @@ function clean_up() {
 const getconnections_hero = (json) => {
   console.log(Object.keys(json.connections));
   Object.keys(json.connections).map(stats => {
-    return get_connectionshtml.innerHTML += `<div id="stats">
+    return get_connectionshtml.innerHTML += `<div id=${stats}>
     <p><b>${stats}</b> : ${json.connections[stats]}</p>
     </div>`;
   })
@@ -45,7 +44,7 @@ const getconnections_hero = (json) => {
 const getwork_hero = (json) => {
   console.log(Object.keys(json.work));
   Object.keys(json.work).map(stats => {
-    return get_workhtml.innerHTML += `<div id="stats">
+    return get_workhtml.innerHTML += `<div id=${stats}>
     <p><b>${stats}</b> : ${json.work[stats]}</p>
     </div>`;
   })
@@ -55,7 +54,7 @@ const getwork_hero = (json) => {
 const getappearance_hero = (json) => {
   console.log(Object.keys(json.appearance));
   Object.keys(json.appearance).map(stats => {
-    return get_appearancehtml.innerHTML += `<div id="stats">
+    return get_appearancehtml.innerHTML += `<div id=${stats}>
     <p><b>${stats}</b> : ${json.appearance[stats]}</p>
     </div>`;
   })
@@ -65,7 +64,7 @@ const getappearance_hero = (json) => {
 const getbiography_hero = (json) => {
   console.log(Object.keys(json.biography));
   Object.keys(json.biography).map(stats => {
-    return get_biographyhtml.innerHTML += `<div id="stats">
+    return get_biographyhtml.innerHTML += `<div id=${stats}>
     <p><b>${stats}</b> : ${json.biography[stats]}</p>
     </div>`;
   })
@@ -75,7 +74,7 @@ const getbiography_hero = (json) => {
 const getpowerstats_hero = (json) => {
   console.log(Object.keys(json.powerstats));
   Object.keys(json.powerstats).map(stats => {
-    return get_statshtml.innerHTML += `<div id="stats">
+    return get_statshtml.innerHTML += `<div id=${stats}>
     <p><b>${stats}</b> : ${json.powerstats[stats]}</p>
     </div>`;
   })
@@ -89,21 +88,44 @@ function search_module(json_data) {
 };
 
 // module for Ids search in IDs input box
-const get_response_api = (id) => {
+const get_response_api = (id, details_stats) => {
   try {
-    console.log(`${base_url}/${id}`)
-    fetch(`${base_url}/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-        clean_up();
-        search_module(data);
-        getpowerstats_hero(data);
-        getbiography_hero(data);
-        getappearance_hero(data);
-        getwork_hero(data);
-        getconnections_hero(data);
-      })
+    if (details_stats == 'Choose an option...') {
+      console.log("choose an option........")
+    } else {
+      console.log(`${base_url}/${id}`)
+      fetch(`${base_url}/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          clean_up();
+          if (details_stats == 'all') {
+            search_module(data);
+            getpowerstats_hero(data);
+            getbiography_hero(data);
+            getappearance_hero(data);
+            getwork_hero(data);
+            getconnections_hero(data);
+          } else if (details_stats == 'powerstats') {
+            search_module(data);
+            getpowerstats_hero(data);
+          } else if (details_stats == 'biography') {
+            search_module(data);
+            getbiography_hero(data);
+          } else if (details_stats == 'appearance') {
+            search_module(data);
+            getappearance_hero(data);
+          } else if (details_stats == 'work') {
+            search_module(data);
+            getwork_hero(data);
+          } else if (details_stats == 'connections') {
+            search_module(data);
+            getconnections_hero(data);
+          } else {
+            console.log("choose an option........")
+          }
+        })
+    }
   } catch (err) {
     console.log(err.name);
   }
@@ -118,7 +140,19 @@ const randomhero_id = () => {
 // module for random IDs to generate details
 random_image_button.onclick = () => {
   clean_up();
-  get_response_api(randomhero_id());
+  if (_search_id_input.value == '' && options_label.options[options_label.selectedIndex].text == 'powerstats' && search_inputtext.value == '') {
+    get_response_api(randomhero_id(), 'powerstats');
+  } else if (_search_id_input.value == '' && options_label.options[options_label.selectedIndex].text == 'biography' && search_inputtext.value == '') {
+    get_response_api(randomhero_id(), 'biography');
+  } else if (_search_id_input.value == '' && options_label.options[options_label.selectedIndex].text == 'appearance' && search_inputtext.value == '') {
+    get_response_api(randomhero_id(), 'appearance');
+  } else if (_search_id_input.value == '' && options_label.options[options_label.selectedIndex].text == 'work' && search_inputtext.value == '') {
+    get_response_api(randomhero_id(), 'work');
+  } else if (_search_id_input.value == '' && options_label.options[options_label.selectedIndex].text == 'connections' && search_inputtext.value == '') {
+    get_response_api(randomhero_id(), 'connections');
+  } else {
+    get_response_api(randomhero_id(), 'all');
+  }
 };
 
 // search with name in search box
@@ -142,13 +176,26 @@ const searchhero = (name) => {
 
 // function to control Ids and name input in search box
 search_hero.onclick = () => {
+  console.log(options_label.options[options_label.selectedIndex].text);
   if (_search_id_input.value != '' && search_inputtext.value != '') {
     searchhero(search_inputtext.value);
+  } else if (_search_id_input.value != '' && options_label.options[options_label.selectedIndex].text == 'powerstats' && search_inputtext.value == '') {
+    get_response_api(_search_id_input.value, 'powerstats');
+  } else if (_search_id_input.value != '' && options_label.options[options_label.selectedIndex].text == 'biography' && search_inputtext.value == '') {
+    get_response_api(_search_id_input.value, 'biography');
+  } else if (_search_id_input.value != '' && options_label.options[options_label.selectedIndex].text == 'appearance' && search_inputtext.value == '') {
+    get_response_api(_search_id_input.value, 'appearance');
+  } else if (_search_id_input.value != '' && options_label.options[options_label.selectedIndex].text == 'work' && search_inputtext.value == '') {
+    get_response_api(_search_id_input.value, 'work');
+  } else if (_search_id_input.value != '' && options_label.options[options_label.selectedIndex].text == 'connections' && search_inputtext.value == '') {
+    get_response_api(_search_id_input.value, 'connections');
+  } else if (_search_id_input.value == '' && options_label.options[options_label.selectedIndex].text == 'Choose an option...' && search_inputtext.value == '') {
+    get_response_api(_search_id_input.value, 'Choose an option...');
   } else if (_search_id_input.value != '') {
     console.log("1");
-    get_response_api(_search_id_input.value)
+    get_response_api(_search_id_input.value, 'all');
   } else {
-    console.log("2")
+    console.log("2");
     searchhero(search_inputtext.value);
   }
 };
