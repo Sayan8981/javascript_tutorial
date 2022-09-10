@@ -1,4 +1,22 @@
 
+//to show alert message at the beginning
+const start_alert_msg = () => {
+  alert("This page is going to show of Heroes Images and Details.");
+  var username = prompt("Please Enter your Name to go forward", '')
+  console.log(username);
+  if (username != '' && username != null) {
+    alert("Welcome to the superhero page " + username);
+  } else if (username == '' && username != null) {
+    alert("Please follow the steps to enter to the page !")
+    start_alert_msg();
+  } else if (username === "null" || username === null || username === "") {
+    alert("Please follow the steps to enter to the page !")
+    start_alert_msg();
+  }
+};
+
+start_alert_msg();
+
 // global parameters
 const token = '3217806018437260'
 const base_url = `https://www.superheroapi.com/api.php/${token}`;
@@ -156,19 +174,17 @@ random_image_button.onclick = () => {
 };
 
 // search with name in search box
-const searchhero = (name) => {
+const searchhero = async (name) => {
   try {
     console.log(`${base_url}/search/${name}`)
-    fetch(`${base_url}/search/${name}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        let hero = data.results;
-        clean_up();
-        for (let data of hero) {
-          search_module(data);
-        }
-      })
+    const fetch_data = await fetch(`${base_url}/search/${name}`);
+    const data = await fetch_data.json();
+    console.log(data);
+    let hero = data.results;
+    clean_up();
+    for (let data of hero) {
+      search_module(data);
+    }
   } catch (error) {
     console.log(error.name);
   }
