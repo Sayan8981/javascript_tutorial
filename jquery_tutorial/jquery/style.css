@@ -1,0 +1,35 @@
+#div1{
+    margin: auto;
+    margin-top: 10px;
+    text-align: center;
+    border: 3px black double;
+    font-size: 20px;
+    background-color:chocolate;
+    height: 200px;
+    width: 200px;
+    position: relative;
+}
+
+#div2{
+    margin: auto;
+    margin-top: 10px;
+    text-align: center;
+    border: 3px greenyellow double;
+    font-size: 20px;
+    background-color: brown;
+    height: 200px;
+    width: 200px;
+    position: relative;
+}
+
+#div3{
+    margin: auto;
+    margin-top: 10px;
+    text-align: center;
+    border: 3px greenyellow double;
+    font-size: 20px;
+    background-color: yellow;
+    height: 200px;
+    width: 200px;
+    position: relative;
+}
